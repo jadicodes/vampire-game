@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxxgmewybwrgh"]
+
+[ext_resource type="Texture2D" uid="uid://ci4b02nhb0bdo" path="res://vampire/vampire.png" id="1_72aow"]
+[ext_resource type="Script" path="res://vampire/vampire.gd" id="1_oflkd"]
+[ext_resource type="Texture2D" uid="uid://cd31r6o7o7cml" path="res://vampire/vampire_walk.png" id="3_cif74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sol1y"]
+size = Vector2(13, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sy0ad"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_72aow")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cif74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_72aow")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Vampire" type="CharacterBody2D"]
+script = ExtResource("1_oflkd")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_sol1y")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sy0ad")
+animation = &"walk"

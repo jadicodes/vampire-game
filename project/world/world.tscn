@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=4 uid="uid://c06od5hd0tbfd"]
+
+[ext_resource type="Texture2D" uid="uid://d0nex67dbyj3s" path="res://world/background.png" id="1_mh518"]
+[ext_resource type="Texture2D" uid="uid://d34i30cn07il8" path="res://world/grass.png" id="1_s2jrf"]
+[ext_resource type="PackedScene" uid="uid://bxxgmewybwrgh" path="res://vampire/vampire.tscn" id="2_q534d"]
+[ext_resource type="Texture2D" uid="uid://c7lh1lkj2e5i4" path="res://world/background_mid.png" id="4_uoxi4"]
+[ext_resource type="PackedScene" uid="uid://tjig4yur78lx" path="res://villagers/villager.tscn" id="4_xry1i"]
+[ext_resource type="PackedScene" uid="uid://bk12ms3efb173" path="res://world/wall.tscn" id="6_r8as7"]
+[ext_resource type="Texture2D" uid="uid://doaugoypb8m5t" path="res://world/tavern.png" id="7_7e3ml"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6lnl4"]
+texture = ExtResource("1_s2jrf")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_8xeb3"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_6lnl4")
+
+[node name="World" type="Node2D"]
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAA4AAAAAAAAAAAABAA4AAAAAAAAAAAACAA4AAAAAAAAAAAADAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAAFAA4AAAAAAAAAAAAGAA4AAAAAAAAAAAAHAA4AAAAAAAAAAAAIAA4AAAAAAAAAAAAJAA4AAAAAAAAAAAAKAA4AAAAAAAAAAAALAA4AAAAAAAAAAAAMAA4AAAAAAAAAAAANAA4AAAAAAAAAAAAOAA4AAAAAAAAAAAAPAA4AAAAAAAAAAAAQAA4AAAAAAAAAAAARAA4AAAAAAAAAAAASAA4AAAAAAAAAAAATAA4AAAAAAAAAAAAUAA4AAAAAAAAAAAAVAA4AAAAAAAAAAAAWAA4AAAAAAAAAAAAXAA4AAAAAAAAAAAAYAA4AAAAAAAAAAAAZAA4AAAAAAAAAAAAaAA4AAAAAAAAAAAAbAA4AAAAAAAAAAAAcAA4AAAAAAAAAAAAdAA4AAAAAAAAAAAAeAA4AAAAAAAAAAAAfAA4AAAAAAAAAAAAgAA4AAAAAAAAAAAAhAA4AAAAAAAAAAAAiAA4AAAAAAAAAAAAjAA4AAAAAAAAAAAAkAA4AAAAAAAAAAAAlAA4AAAAAAAAAAAAmAA4AAAAAAAAAAAAnAA4AAAAAAAAAAAAoAA4AAAAAAAAAAAApAA4AAAAAAAAAAAAqAA4AAAAAAAAAAAArAA4AAAAAAAAAAAAsAA4AAAAAAAAAAAAtAA4AAAAAAAAAAAAuAA4AAAAAAAAAAAD//w4AAAAAAAAAAAD+/w4AAAAAAAAAAAD9/w4AAAAAAAAAAAD8/w4AAAAAAAAAAAD7/w4AAAAAAAAAAAD6/w4AAAAAAAAAAAD5/w4AAAAAAAAAAAD4/w4AAAAAAAAAAAD3/w4AAAAAAAAAAAD2/w4AAAAAAAAAAAD1/w4AAAAAAAAAAAD0/w4AAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_8xeb3")
+
+[node name="Tavern" type="Sprite2D" parent="."]
+position = Vector2(430, 149)
+texture = ExtResource("7_7e3ml")
+
+[node name="Vampire" parent="." instance=ExtResource("2_q534d")]
+position = Vector2(13, 208)
+
+[node name="Camera" type="Camera2D" parent="Vampire"]
+limit_left = -192
+limit_bottom = 240
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayerBack" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(360, 0)
+
+[node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerBack"]
+texture_repeat = 2
+texture = ExtResource("1_mh518")
+centered = false
+
+[node name="ParallaxLayerMid" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(360, 0)
+
+[node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerMid"]
+texture_repeat = 2
+texture = ExtResource("4_uoxi4")
+centered = false
+
+[node name="Villager" parent="." instance=ExtResource("4_xry1i")]
+position = Vector2(109, 208)
+
+[node name="Wall" parent="." instance=ExtResource("6_r8as7")]
+position = Vector2(-142, 104)
