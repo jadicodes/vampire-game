@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxxgmewybwrgh"]
+[gd_scene load_steps=8 format=3 uid="uid://bxxgmewybwrgh"]
 
 [ext_resource type="Texture2D" uid="uid://ci4b02nhb0bdo" path="res://vampire/vampire.png" id="1_72aow"]
 [ext_resource type="Script" path="res://vampire/vampire.gd" id="1_oflkd"]
 [ext_resource type="Texture2D" uid="uid://cd31r6o7o7cml" path="res://vampire/vampire_walk.png" id="3_cif74"]
+[ext_resource type="Script" path="res://vampire/bite_detector.gd" id="4_b13d6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sol1y"]
 size = Vector2(13, 23)
@@ -29,7 +30,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpsb6"]
+radius = 11.0
+
 [node name="Vampire" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_oflkd")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -39,3 +44,14 @@ shape = SubResource("RectangleShape2D_sol1y")
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_sy0ad")
 animation = &"walk"
+
+[node name="BiteDetector" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_b13d6")
+
+[node name="BiteDetectorArea" type="CollisionShape2D" parent="BiteDetector"]
+shape = SubResource("CircleShape2D_lpsb6")
+
+[connection signal="body_entered" from="BiteDetector" to="BiteDetector" method="_on_body_entered"]
+[connection signal="body_exited" from="BiteDetector" to="BiteDetector" method="_on_body_exited"]

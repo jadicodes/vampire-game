@@ -1,0 +1,2 @@
+class_name Villager
+extends CharacterBody2D
